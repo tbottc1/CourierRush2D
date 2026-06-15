@@ -12,9 +12,11 @@ public class Car : MonoBehaviour
     float turnSpeed = 200f;
     float currentSpeed = 0f;
 
+    public GameManager gameManager;
     Rigidbody2D rb;
 
     Vector2 moveInput;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,6 +30,13 @@ public class Car : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!gameManager.gameActive)
+        {
+            rb.linearVelocity = Vector2.zero;
+            currentSpeed = 0f;
+            return;
+        }
+        
         float moveAmount = moveInput.y;
         if (moveAmount != 0)
         {
